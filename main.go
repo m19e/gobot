@@ -8,8 +8,10 @@ import (
 	"math/rand"
 	"net/url"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"time"
 )
 
@@ -57,7 +59,7 @@ func main() {
 	log.Println("Application End.")
 }
 
-func TimerFunc(stopTimer chan int) {
+func TimerFunc(stopTimer chan os.Signal) {
 	go func() {
 		ticker := time.NewTicker(1 * time.Hour)
 
