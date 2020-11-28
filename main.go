@@ -43,17 +43,14 @@ func shuffled(data []string) []string {
 }
 
 func main() {
-	chStop := make(chan int, 1)
-	TimerFunc(chStop)
+	// chStop := make(chan int, 1)
+	// chStop <- 0
+	// close(chStop)
 
-	time.Sleep(time.Minute * 2)
-	chStop <- 0
-
-	close(chStop)
-
-	// sc := make(chan os.Signal, 1)
-	// signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
-	// <-sc
+	sc := make(chan os.Signal, 1)
+	TimerFunc(sc)
+	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+	close(sc)
 
 	time.Sleep(time.Second * 1)
 	log.Println("Application End.")
