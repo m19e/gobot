@@ -3,7 +3,6 @@ package main
 import (
 	"bot/keys"
 	"bot/media"
-	"fmt"
 	"log"
 	"net/url"
 )
@@ -24,5 +23,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(tweet.Text)
+	log.Println(tweet.Text)
 }
