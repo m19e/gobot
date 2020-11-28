@@ -8,10 +8,8 @@ import (
 	"math/rand"
 	"net/url"
 	"os"
-	"os/signal"
 	"path/filepath"
 	"strings"
-	"syscall"
 	"time"
 )
 
@@ -43,20 +41,18 @@ func shuffled(data []string) []string {
 }
 
 func main() {
-	// chStop := make(chan int, 1)
-	// chStop <- 0
-	// close(chStop)
+	chStop := make(chan int, 1)
+	TimerFunc(chStop)
 
-	sc := make(chan os.Signal, 1)
-	TimerFunc(sc)
-	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
-	close(sc)
+	time.Sleep(time.Hour * 24 * 365 * 3)
+	chStop <- 0
+	close(chStop)
 
 	time.Sleep(time.Second * 1)
 	log.Println("Application End.")
 }
 
-func TimerFunc(stopTimer chan os.Signal) {
+func TimerFunc(stopTimer chan int) {
 	go func() {
 		ticker := time.NewTicker(1 * time.Hour)
 
@@ -66,7 +62,7 @@ func TimerFunc(stopTimer chan os.Signal) {
 				if len(shuffledSubs) == 0 {
 					shuffledSubs = shuffled(subs)
 				}
-				log.Println(shuffledSubs[0])
+				// log.Println(shuffledSubs[0])
 				post(subsDir, shuffledSubs[0])
 				shuffledSubs = shuffledSubs[1:]
 
