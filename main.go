@@ -21,6 +21,7 @@ var shuffledSubs []string
 func init() {
 	filepath.Walk(subsDir, appendSubs)
 	shuffledSubs = shuffled(subs)
+	log.Printf("len(subs) => %d\n", len(subs))
 }
 
 func appendSubs(path string, info os.FileInfo, err error) error {
