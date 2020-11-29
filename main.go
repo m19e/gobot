@@ -55,7 +55,7 @@ func main() {
 
 func TimerFunc(stopTimer chan int) {
 	go func() {
-		ticker := time.NewTicker(1 * time.Hour)
+		ticker := time.NewTicker(30 * time.Minute)
 
 		for {
 			select {
