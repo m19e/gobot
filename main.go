@@ -62,7 +62,6 @@ func TimerFunc(stopTimer chan int) {
 				if len(shuffledSubs) == 0 {
 					shuffledSubs = shuffled(subs)
 				}
-				// log.Println(shuffledSubs[0])
 				post(subsDir, shuffledSubs[0])
 				shuffledSubs = shuffledSubs[1:]
 
